@@ -31,6 +31,9 @@ Provides:	php-pecl(%{pecl_name}) = %{version}
 Provides:	%{php_base}-pecl(%{pecl_name}) = %{version}
 Provides:	%{real_name} = %{version}
 
+# RPM 4.8
+%{?filter_provides_in: %filter_provides_in %{php_extdir}/.*\.so$}
+%{?filter_setup}
 
 
 %description

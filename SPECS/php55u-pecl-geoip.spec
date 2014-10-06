@@ -15,17 +15,21 @@ License:	PHP
 URL:		http://pecl.php.net/package/%{pecl_name}
 Source0:	http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
-BuildRequires:	GeoIP-devel %{php_base}-devel %{php_base}-pear >= 1:1.4.0
-Requires(post):	%{__pecl}
-Requires(postun):	%{__pecl}
-Provides:	%{real_name} = %{version}
-
+BuildRequires:	GeoIP-devel
+BuildRequires:  %{php_base}-devel
+BuildRequires:  %{php_base}-pear >= 1:1.4.0
 %if 0%{?php_zend_api:1}
 Requires:	%{php_base}(zend-abi) = %{php_zend_api}
 Requires:	%{php_base}(api) = %{php_core_api}
 %else
 Requires:	%{php_base}-api = %{php_apiver}
 %endif
+Requires(post):	%{php_base}-pear
+Requires(postun):	%{php_base}-pear
+Provides:	php-pecl(%{pecl_name}) = %{version}
+Provides:	%{php_base}-pecl(%{pecl_name}) = %{version}
+Provides:	%{real_name} = %{version}
+
 
 
 %description

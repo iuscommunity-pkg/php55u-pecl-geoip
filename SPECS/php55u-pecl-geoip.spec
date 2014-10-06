@@ -14,7 +14,6 @@ Group:		Development/Languages
 License:	PHP
 URL:		http://pecl.php.net/package/%{pecl_name}
 Source0:	http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	GeoIP-devel %{php_base}-devel %{php_base}-pear >= 1:1.4.0
 Requires(post):	%{__pecl}
@@ -28,16 +27,19 @@ Requires:	%{php_base}(api) = %{php_core_api}
 Requires:	%{php_base}-api = %{php_apiver}
 %endif
 
+
 %description
 This PHP extension allows you to find the location of an IP address 
 City, State, Country, Longitude, Latitude, and other information as 
 all, such as ISP and connection type. It makes use of Maxminds geoip
 database
 
+
 %prep
 %setup -c -q
 [ -f package2.xml ] || %{__mv} package.xml package2.xml
 %{__mv} package2.xml %{pecl_name}-%{version}/%{pecl_name}.xml
+
 
 %build
 cd %{pecl_name}-%{version}
@@ -48,7 +50,6 @@ phpize
 
 %install
 cd %{pecl_name}-%{version}
-%{__rm} -rf %{buildroot}
 %{__make} install INSTALL_ROOT=%{buildroot} INSTALL="install -p"
 
 %{__mkdir_p} %{buildroot}%{_sysconfdir}/php.d
@@ -60,9 +61,6 @@ EOF
 %{__mkdir_p} %{buildroot}%{pecl_xmldir}
 %{__install} -p -m 644 %{pecl_name}.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
-
-%clean
-%{__rm} -rf %{buildroot}
 
 %if 0%{?pecl_install:1}
 %post
@@ -77,12 +75,13 @@ if [ $1 -eq 0 ]; then
 fi
 %endif
 
+
 %files
-%defattr(-,root,root,-)
 %doc %{pecl_name}-%{version}/{README,ChangeLog}
 %config(noreplace) %{_sysconfdir}/php.d/%{pecl_name}.ini
 %{php_extdir}/%{pecl_name}.so
 %{pecl_xmldir}/%{name}.xml
+
 
 %changelog
 * Fri Dec 06 2013 Ben Harper <ben.harper@rackspace.com> - 1.0.8-4.ius

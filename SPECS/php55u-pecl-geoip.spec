@@ -5,6 +5,7 @@
 %define pecl_name geoip
 %define real_name php-pecl-geoip
 %define php_base php55u
+%global ini_name  40-%{pecl_name}.ini
 
 Name:		%{php_base}-pecl-geoip
 Version:	1.0.8
@@ -56,8 +57,8 @@ phpize
 cd %{pecl_name}-%{version}
 %{__make} install INSTALL_ROOT=%{buildroot} INSTALL="install -p"
 
-%{__mkdir_p} %{buildroot}%{_sysconfdir}/php.d
-%{__cat} > %{buildroot}%{_sysconfdir}/php.d/%{pecl_name}.ini << 'EOF'
+%{__mkdir_p} %{buildroot}%{php_inidir}
+%{__cat} > %{buildroot}%{php_inidir}/%{ini_name} << 'EOF'
 ; Enable %{pecl_name} extension module
 extension=%{pecl_name}.so
 EOF
@@ -82,7 +83,7 @@ fi
 
 %files
 %doc %{pecl_name}-%{version}/{README,ChangeLog}
-%config(noreplace) %{_sysconfdir}/php.d/%{pecl_name}.ini
+%config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 %{pecl_xmldir}/%{name}.xml
 

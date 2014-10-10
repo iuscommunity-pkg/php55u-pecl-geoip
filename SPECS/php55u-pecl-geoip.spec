@@ -9,7 +9,7 @@
 
 Name:		%{php_base}-pecl-geoip
 Version:	1.0.8
-Release:	5.ius%{?dist}
+Release:	6.ius%{?dist}
 Summary:	Extension to map IP addresses to geographic places
 Group:		Development/Languages
 License:	PHP
@@ -101,6 +101,10 @@ fi
 
 
 %changelog
+* Fri Oct 10 2014 Carl George <carl.george@rackspace.com> - 1.0.8-6.ius
+- Conflict with stock package
+- Use same provides as stock package
+
 * Mon Oct 06 2014 Carl George <carl.george@rackspace.com> - 1.0.8-5.ius
 - Add numerical prefix to extension configuration file
 - Add filter to avoid private-shared-object-provides geoip.so
